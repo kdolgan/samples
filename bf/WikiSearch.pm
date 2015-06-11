@@ -56,36 +56,6 @@ sub search_web {
 	return \@data;
 }
 
-sub search_page {
-	my ( $self, $args ) = @_;
-
-	return if !$args->{page};
-
-	my $search_url   = 'http://en.wikipedia.org/w/api.php';
-	my $search_param = {
-		page   => $args->{page},
-		action => 'parse',
-		prop   => 'text',
-		format => 'xml',
-	};
-	my $response = buzzfeed2::Scraper->request( $search_url, $search_param );
-	return if $response->is_error;
-
-	my $xs       = new XML::Simple;
-	my $xml_data = $xs->XMLin( $response->content );
-	my $html     = $xml_data->{parse}{text}{content};
-	my $count;
-	my $res = '';
-
-	while ( $html =~ /<p>(.+)<\/p>/g ) {
-		$count++;
-		last if $count > 2;
-		my $p = buzzfeed2::StringUtil->clean($1);
-		$res .= "<p>$p</p>\n";
-	}
-	return $res;
-}
-
 sub get_page {
 	my ( $self, $args ) = @_;
 
