@@ -147,14 +147,15 @@ sub interact {
 		$text = uri_escape($text);
 		my $date = strftime("%Y-%m-%d %H:%M:%S", localtime(str2time($query{time}) + 10800));
 		$date = uri_escape($date);
-		my $urlNew = '';
+		my $proc = '';
 		my $recipient = $query{recipient} || '';
 		if($query{recipient} && $query{recipient} ~~ @__PHONES_TEST) {
-			$urlNew = $__URLS->{FIRST}{url} . "incore/?from=".$sender."&sms_status=mt&sms_id=li".$ridAdd."&date=".$date."&msg=".$text."&short_number=".$recipient;
+			$proc = 'incore';
 		}
 		else {
-			$urlNew = $__URLS->{FIRST}{url} . "smsbil/?from=".$sender."&sms_status=mt&sms_id=li".$ridAdd."&date=".$date."&msg=".$text."&short_number=".$recipient;
+			$proc = 'smsbil';
 		}
+		my $urlNew = $__URLS->{FIRST}{url} . "$proc/?from=".$sender."&sms_status=mt&sms_id=li".$ridAdd."&date=".$date."&msg=".$text."&short_number=".$recipient;
 		my $res = requestGet($urlNew, $__URLS->{FIRST}{store});
 	} elsif($mode eq '/life/delivery_report.php') {
 		(my $sender = $query{sender}) =~ s/\+//g;
