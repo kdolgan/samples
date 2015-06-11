@@ -1,9 +1,9 @@
 Just some code samples
 
 bf - buzzfeed.com
-  PhotoTextOverlay.pm 
-  PluginModeration.pm
-  WikiSearch.pm
+  PhotoTextOverlay.pm - наложение текста на изображение
+  PluginModeration.pm - генерация и обновление частей страницы 
+  WikiSearch.pm - поиск в Wiki
 
 huff - huffingtonpost.com
   EntryPaginate.pm - MT-plugin для разбивка статьи на страницы
